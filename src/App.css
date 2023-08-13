@@ -1,0 +1,45 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url('../public/bg4.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  color: #e6ee9c;
+  font-family: 'Courier New', Courier, monospace !important;
+}
+
+.bg-filter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: #000;
+  opacity: 0.6;
+}
+
+p {
+  color: #e6ee9c !important;
+}
+
+.blinking-cursor {
+  animation: blink 950ms infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
