@@ -1,0 +1,15 @@
+{
+    "name": "leads-server",
+    "version": "1.0.0",
+    "description": "Leads collection server",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "nodemailer": "^6.9.1"
+    }
+}
