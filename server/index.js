@@ -1,40 +1,38 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const mailgun = require('nodemailer-mailgun-transport');
+const auth = {
+    auth: {
+        api_key: process.env.REACT_APP_MAILGUN_KEY,
+        domain: process.env.REACT_APP_MAILGUN_DOMAIN
+    }
+};
+
+const transporter = nodemailer.createTransport(mailgun(auth));
+
 
 const app = express();
 
 app.get('/leads', async (req, res) => {
     try {
-        // לוגיקה לאיסוף הלידים ממקור כלשהו
+        const { leadEmail, content } = req;
+        const mailOptions = {
+            from: '<From Protfolio> avragol@gmail.com',
+            to: 'avragol@gmail.com',
+            subject: 'Test email',
+            text: 'This is a test email sent using Mailgun from Node.js'
+        };
 
-        const leads = []; // ממלאים את המערך עם הלידים שנאספו
-
-        // שליחת מייל עם הלידים
-
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.example.com',
-            port: 587,
-            secure: false,
-            auth: {
-                user: 'user@example.com',
-                pass: 'password'
+        transporter.sendMail(mailOptions, (err, data) => {
+            if (err) {
+                console.log('Error: ', err);
+            } else {
+                console.log('Email sent!', data);
+                res.send(data)
             }
         });
-
-        let info = await transporter.sendMail({
-            from: '"Leads Server" <leads@example.com>',
-            to: 'manager@example.com',
-            subject: 'New Leads',
-            text: JSON.stringify(leads)
-        });
-
-        console.log("Message sent: %s", info.messageId);
-
-        // החזרת תשובה
-
-        res.send('Leads collected and emailed successfully');
     } catch (err) {
-        res.send(err);
+        res.status(400).send(err);
     }
 
 
